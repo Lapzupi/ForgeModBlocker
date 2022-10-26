@@ -6,8 +6,6 @@ import me.itsmas.forgemodblocker.ForgeModBlocker;
 import me.itsmas.forgemodblocker.mods.ModData;
 import org.bukkit.entity.Player;
 
-import java.util.stream.Collectors;
-
 /**
  * Handles {@link PlaceholderAPI} hooks
  */

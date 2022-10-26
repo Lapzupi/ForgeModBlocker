@@ -8,11 +8,12 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.PluginDescriptionFile;
+import org.jetbrains.annotations.NotNull;
 
 public class MainCommand implements CommandExecutor {
     private final ForgeModBlocker plugin;
 
-    public MainCommand(ForgeModBlocker plugin) {
+    public MainCommand(@NotNull ForgeModBlocker plugin) {
         this.plugin = plugin;
 
         PluginDescriptionFile description = plugin.getDescription();
@@ -22,7 +23,7 @@ public class MainCommand implements CommandExecutor {
     private final String msg;
 
     @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender,@NotNull Command cmd,@NotNull String label, String[] args) {
         if (!Permission.hasPermission(sender, Permission.MAIN_COMMAND)) {
             Message.send(sender, Message.NO_PERMISSION);
             return true;
@@ -48,7 +49,7 @@ public class MainCommand implements CommandExecutor {
         return true;
     }
 
-    private void sendUsage(CommandSender sender) {
+    private void sendUsage(@NotNull CommandSender sender) {
         sender.sendMessage(ChatColor.GREEN + "Commands:");
         sender.sendMessage(ChatColor.YELLOW + "/fmb reload - Reloads the plugin");
     }

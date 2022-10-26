@@ -13,26 +13,22 @@ import java.util.Map;
 /**
  * Listens to Forge messages through the messaging channel
  */
-public class MessageListener implements PluginMessageListener
-{
+public class MessageListener implements PluginMessageListener {
     /**
      * The plugin instance
      */
     private final ForgeModBlocker plugin;
 
-    public MessageListener(ForgeModBlocker plugin)
-    {
+    public MessageListener(ForgeModBlocker plugin) {
         this.plugin = plugin;
 
         UtilServer.registerIncomingChannel("FML|HS", this);
     }
 
     @Override
-    public void onPluginMessageReceived(String channel, Player player, byte[] data)
-    {
+    public void onPluginMessageReceived(String channel, Player player, byte[] data) {
         // ModList has ID 2
-        if (data[0] == 2)
-        {
+        if (data[0] == 2) {
             ModData modData = getModData(data);
             plugin.getModManager().addPlayer(player, modData);
         }
@@ -44,26 +40,21 @@ public class MessageListener implements PluginMessageListener
      * @param data The input data
      * @return A ModData object
      */
-    private ModData getModData(byte[] data)
-    {
+    private ModData getModData(byte[] data) {
         Map<String, String> mods = new HashMap<>();
 
         boolean store = false;
         String tempName = null;
 
-        for (int i = 2; i < data.length; store = !store)
-        {
+        for (int i = 2; i < data.length; store = !store) {
             int end = i + data[i] + 1;
             byte[] range = Arrays.copyOfRange(data, i + 1, end);
 
             String string = new String(range);
 
-            if (store)
-            {
+            if (store) {
                 mods.put(tempName, string);
-            }
-            else
-            {
+            } else {
                 tempName = string;
             }
 

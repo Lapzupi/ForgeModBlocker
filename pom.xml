@@ -11,6 +11,10 @@
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+
+        <spigot.api.version>1.12.1-R0.1-SNAPSHOT</spigot.api.version>
+        <protocolib.version>4.3.0</protocolib.version>
+        <papi.version>2.0.8</papi.version>
     </properties>
 
     <repositories>
@@ -31,11 +35,10 @@
     </repositories>
 
     <dependencies>
-        <!-- Spigot Server 1.12.1 -->
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
-            <version>1.12.1-R0.1-SNAPSHOT</version>
+            <version>${spigot.api.version}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -43,7 +46,7 @@
         <dependency>
             <groupId>com.comphenix.protocol</groupId>
             <artifactId>ProtocolLib</artifactId>
-            <version>4.3.0</version>
+            <version>${protocolib.version}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -51,7 +54,7 @@
         <dependency>
             <groupId>me.clip</groupId>
             <artifactId>placeholderapi</artifactId>
-            <version>2.0.8</version>
+            <version>${papi.version}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

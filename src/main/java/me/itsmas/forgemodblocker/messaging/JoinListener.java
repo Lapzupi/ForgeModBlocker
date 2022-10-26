@@ -12,15 +12,13 @@ import org.bukkit.scheduler.BukkitRunnable;
 /**
  * Handles player joins and quits
  */
-public class JoinListener implements Listener
-{
+public class JoinListener implements Listener {
     /**
      * The plugin instance
      */
     private final ForgeModBlocker plugin;
 
-    public JoinListener(ForgeModBlocker plugin)
-    {
+    public JoinListener(ForgeModBlocker plugin) {
         this.plugin = plugin;
 
         UtilServer.registerListener(this);
@@ -28,15 +26,12 @@ public class JoinListener implements Listener
     }
 
     @EventHandler
-    public void onJoin(PlayerJoinEvent event)
-    {
+    public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
 
-        new BukkitRunnable()
-        {
+        new BukkitRunnable() {
             @Override
-            public void run()
-            {
+            public void run() {
                 sendFmlPacket(player, (byte) -2, (byte) 0);
                 sendFmlPacket(player, (byte) 0, (byte) 2, (byte) 0, (byte) 0, (byte) 0, (byte) 0);
                 sendFmlPacket(player, (byte) 2, (byte) 0, (byte) 0, (byte) 0, (byte) 0);
@@ -48,16 +43,14 @@ public class JoinListener implements Listener
      * Sends a packet through the FML|HS channel
      *
      * @param player The player to send the packet to
-     * @param data The data to send with the packet
+     * @param data   The data to send with the packet
      */
-    private void sendFmlPacket(Player player, byte... data)
-    {
+    private void sendFmlPacket(Player player, byte... data) {
         player.sendPluginMessage(plugin, "FML|HS", data);
     }
 
     @EventHandler
-    public void onQuit(PlayerQuitEvent event)
-    {
+    public void onQuit(PlayerQuitEvent event) {
         plugin.getModManager().removePlayer(event.getPlayer());
     }
 }

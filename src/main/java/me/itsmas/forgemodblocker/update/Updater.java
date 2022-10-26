@@ -26,8 +26,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * Scans for available plugin updates
  */
-public class Updater implements Listener
-{
+public class Updater implements Listener {
     /**
      * Spiget API query URLs
      */
@@ -54,8 +53,7 @@ public class Updater implements Listener
      */
     private Object[] data;
 
-    public Updater(ForgeModBlocker plugin)
-    {
+    public Updater(ForgeModBlocker plugin) {
         this.plugin = plugin;
 
         this.updateCheckInterval = 20L * 60L * (int) plugin.getConfig("update-check-interval", 20L);
@@ -63,13 +61,10 @@ public class Updater implements Listener
 
         UtilServer.registerListener(this);
 
-        new BukkitRunnable()
-        {
+        new BukkitRunnable() {
             @Override
-            public void run()
-            {
-                if (checkUpdates())
-                {
+            public void run() {
+                if (checkUpdates()) {
                     cancel();
                 }
             }
@@ -86,13 +81,11 @@ public class Updater implements Listener
      *
      * @return Whether an update was found
      */
-    private boolean checkUpdates()
-    {
+    private boolean checkUpdates() {
         JsonElement versionElement = UtilHttp.getJsonFromUrl(RESOURCE_VERSIONS);
         JsonElement updateElement = UtilHttp.getJsonFromUrl(RESOURCE_UPDATES);
 
-        if (versionElement == null || updateElement == null)
-        {
+        if (versionElement == null || updateElement == null) {
             return false;
         }
 
@@ -105,11 +98,10 @@ public class Updater implements Listener
         String versionName = latestVersion.get("name").getAsString();
         int version = Integer.parseInt(versionName.replaceAll("\\.", ""));
 
-        if (version > currentVersion)
-        {
+        if (version > currentVersion) {
             String updateTitle = latestUpdate.get("title").getAsString();
 
-            data = new Object[] {versionName, updateTitle};
+            data = new Object[]{versionName, updateTitle};
 
             announceUpdate();
             attemptDownload();
@@ -128,14 +120,13 @@ public class Updater implements Listener
     /**
      * Periodically broadcasts new updates
      */
-    private void announceUpdate()
-    {
+    private void announceUpdate() {
         String[] messages = new String[]
-        {
-            "An update is available:",
-            "Version: " + data[0] + " (current: " + plugin.getDescription().getVersion() + ")",
-            "Title: " + data[1]
-        };
+                {
+                        "An update is available:",
+                        "Version: " + data[0] + " (current: " + plugin.getDescription().getVersion() + ")",
+                        "Title: " + data[1]
+                };
 
         Logs.info(messages);
         setJoinMessage(messages);
@@ -146,13 +137,11 @@ public class Updater implements Listener
     /**
      * Sets the join message
      *
-     * @see #joinMessage
      * @param messages The separated messages
+     * @see #joinMessage
      */
-    private void setJoinMessage(String... messages)
-    {
-        for (int i = 0; i < messages.length; i++)
-        {
+    private void setJoinMessage(String... messages) {
+        for (int i = 0; i < messages.length; i++) {
             messages[i] = C.PREFIX + messages[i];
         }
 
@@ -164,18 +153,15 @@ public class Updater implements Listener
      *
      * @param player The player
      */
-    private void sendJoinMessage(Player player)
-    {
+    private void sendJoinMessage(Player player) {
         player.sendMessage(joinMessage);
     }
 
     @EventHandler
-    public void onJoin(PlayerJoinEvent event)
-    {
+    public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
 
-        if (joinMessage != null && Permission.hasPermission(player, Permission.UPDATE_NOTIFICATION))
-        {
+        if (joinMessage != null && Permission.hasPermission(player, Permission.UPDATE_NOTIFICATION)) {
             sendJoinMessage(player);
         }
     }
@@ -193,22 +179,19 @@ public class Updater implements Listener
     /**
      * Attempts to download the latest plugin update
      */
-    private void attemptDownload()
-    {
+    private void attemptDownload() {
         Logs.info("Attempting update download");
         UtilServer.broadcast(Permission.UPDATE_NOTIFICATION, "Attempting to download plugin update...");
 
         File updateDir = new File("plugins" + File.separator + "");
 
-        if (!updateDir.exists())
-        {
+        if (!updateDir.exists()) {
             updateDir.mkdir();
         }
 
         File pluginFile = new File(updateDir, "ForgeModBlocker.jar");
 
-        try
-        {
+        try {
             URL updateUrl = new URL(fileAddress);
             HttpURLConnection connection = (HttpURLConnection) updateUrl.openConnection();
 
@@ -219,27 +202,22 @@ public class Updater implements Listener
             Logs.info("Update download successful");
 
             UtilServer.broadcast(Permission.UPDATE_NOTIFICATION,
-                ChatColor.GREEN + "Update downloaded successfully",
-                ChatColor.GREEN + "Updates will take effect when the server is restarted"
+                    ChatColor.GREEN + "Update downloaded successfully",
+                    ChatColor.GREEN + "Updates will take effect when the server is restarted"
             );
 
             setJoinMessage(ChatColor.GREEN + "A new update was downloaded", ChatColor.GREEN + "Restart the server for it to take effect");
-        }
-        catch (IOException ex)
-        {
+        } catch (IOException ex) {
             Logs.severe("Update download failed");
             UtilServer.broadcast(Permission.UPDATE_NOTIFICATION, ChatColor.RED + "Update download failed");
 
             ex.printStackTrace();
 
-            if (updateAttempts.incrementAndGet() <= 3)
-            {
+            if (updateAttempts.incrementAndGet() <= 3) {
                 // Re-attempts the update later
-                new BukkitRunnable()
-                {
+                new BukkitRunnable() {
                     @Override
-                    public void run()
-                    {
+                    public void run() {
                         attemptDownload();
                     }
                 }.runTaskLaterAsynchronously(plugin, UPDATE_CHECK_DELAY);

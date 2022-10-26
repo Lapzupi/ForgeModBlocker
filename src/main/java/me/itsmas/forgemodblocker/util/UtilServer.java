@@ -13,9 +13,9 @@ import org.bukkit.plugin.messaging.PluginMessageListener;
 /**
  * Server utility methods
  */
-public final class UtilServer
-{
-    private UtilServer(){}
+public final class UtilServer {
+    private UtilServer() {
+    }
 
     /**
      * The plugin instance
@@ -25,40 +25,35 @@ public final class UtilServer
     /**
      * Fetches the plugin instance
      *
-     * @see #plugin
      * @return The plugin instance
+     * @see #plugin
      */
-    static ForgeModBlocker getPlugin()
-    {
+    static ForgeModBlocker getPlugin() {
         return plugin;
     }
 
     /**
      * Broadcasts a set of messages to all players with a {@link Permission}
      *
-     * @see #broadcast(Permission, boolean, String...)
      * @param permission The required permission
-     * @param messages The messages to send
+     * @param messages   The messages to send
+     * @see #broadcast(Permission, boolean, String...)
      */
-    public static void broadcast(Permission permission, String... messages)
-    {
+    public static void broadcast(Permission permission, String... messages) {
         broadcast(permission, true, messages);
     }
 
     /**
      * Broadcasts a set of messages to all players with a {@link Permission}
      *
-     * @see C#PREFIX
      * @param permission The required permission
-     * @param messages The messages to send
-     * @param prefix Whether to prefix the messages with the plugin prefix
+     * @param messages   The messages to send
+     * @param prefix     Whether to prefix the messages with the plugin prefix
+     * @see C#PREFIX
      */
-    public static void broadcast(Permission permission, boolean prefix, String... messages)
-    {
-        if (prefix)
-        {
-            for (int i = 0; i < messages.length; i++)
-            {
+    public static void broadcast(Permission permission, boolean prefix, String... messages) {
+        if (prefix) {
+            for (int i = 0; i < messages.length; i++) {
                 messages[i] = C.PREFIX + messages[i];
             }
         }
@@ -71,8 +66,7 @@ public final class UtilServer
      *
      * @param listener The listener
      */
-    public static void registerListener(Listener listener)
-    {
+    public static void registerListener(Listener listener) {
         Bukkit.getPluginManager().registerEvents(listener, plugin);
     }
 
@@ -81,19 +75,17 @@ public final class UtilServer
      *
      * @param channel The channel name
      */
-    public static void registerOutgoingChannel(String channel)
-    {
+    public static void registerOutgoingChannel(String channel) {
         Bukkit.getMessenger().registerOutgoingPluginChannel(plugin, channel);
     }
 
     /**
      * Registers an incoming message channel
      *
-     * @param channel The channel name
+     * @param channel         The channel name
      * @param messageListener The {@link PluginMessageListener} listening to the channel
      */
-    public static void registerIncomingChannel(String channel, PluginMessageListener messageListener)
-    {
+    public static void registerIncomingChannel(String channel, PluginMessageListener messageListener) {
         Bukkit.getMessenger().registerIncomingPluginChannel(plugin, channel, messageListener);
     }
 
@@ -102,21 +94,18 @@ public final class UtilServer
      *
      * @param args The data to send
      */
-    public static void writeBungee(String... args)
-    {
+    public static void writeBungee(String... args) {
         assert args.length > 0 : "Args length must be at least 1";
 
         Player player = Iterables.getFirst(Bukkit.getOnlinePlayers(), null);
 
-        if (player == null)
-        {
+        if (player == null) {
             return;
         }
 
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
 
-        for (String arg : args)
-        {
+        for (String arg : args) {
             out.writeUTF(arg);
         }
 

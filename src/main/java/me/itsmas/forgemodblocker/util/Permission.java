@@ -5,8 +5,7 @@ import org.bukkit.command.CommandSender;
 /**
  * Permission nodes for the plugin
  */
-public enum Permission
-{
+public enum Permission {
     ALL("*"),
     UPDATE_NOTIFICATION("update_notification"),
     BYPASS("bypass"),
@@ -14,8 +13,7 @@ public enum Permission
     RELOAD_COMMAND("reload_command"),
     MODS_COMMAND("mods_command");
 
-    Permission(String name)
-    {
+    Permission(String name) {
         this.node = "fmb." + name;
     }
 
@@ -27,12 +25,11 @@ public enum Permission
     /**
      * Determines whether a {@link CommandSender} has a {@link Permission}
      *
-     * @param sender The sender
+     * @param sender     The sender
      * @param permission The permission
      * @return Whether the sender has the permission
      */
-    public static boolean hasPermission(CommandSender sender, Permission permission)
-    {
+    public static boolean hasPermission(CommandSender sender, Permission permission) {
         return sender.hasPermission(permission.node);
     }
 }

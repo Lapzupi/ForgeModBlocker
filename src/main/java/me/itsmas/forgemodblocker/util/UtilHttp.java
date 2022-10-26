@@ -12,9 +12,9 @@ import java.net.URL;
 /**
  * Web utility methods
  */
-public final class UtilHttp
-{
-    private UtilHttp(){}
+public final class UtilHttp {
+    private UtilHttp() {
+    }
 
     /**
      * The user agent
@@ -32,10 +32,8 @@ public final class UtilHttp
      * @param address The web address
      * @return The json element
      */
-    public static JsonElement getJsonFromUrl(String address)
-    {
-        try
-        {
+    public static JsonElement getJsonFromUrl(String address) {
+        try {
             URL url = new URL(address);
 
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -45,9 +43,7 @@ public final class UtilHttp
             InputStreamReader reader = new InputStreamReader(inputStream);
 
             return PARSER.parse(reader);
-        }
-        catch (IOException ex)
-        {
+        } catch (IOException ex) {
             return null;
         }
     }

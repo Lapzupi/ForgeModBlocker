@@ -23,15 +23,13 @@ import java.util.stream.Collectors;
 /**
  * Handles caching of player mods
  */
-public class ModManager
-{
+public class ModManager {
     /**
      * The plugin instance
      */
     private final ForgeModBlocker plugin;
 
-    public ModManager(ForgeModBlocker plugin)
-    {
+    public ModManager(ForgeModBlocker plugin) {
         this.plugin = plugin;
 
         new JoinListener(plugin);
@@ -43,8 +41,7 @@ public class ModManager
     /**
      * Loads needed configuration values
      */
-    public void loadConfigValues()
-    {
+    public void loadConfigValues() {
         loadMode();
 
         blockForge = plugin.getConfig("block-forge", false);
@@ -57,8 +54,7 @@ public class ModManager
     /**
      * Loads the whitelist/blacklist mode
      */
-    private void loadMode()
-    {
+    private void loadMode() {
         Mode mode = EnumUtils.getEnum(Mode.class, ((String) plugin.getConfig("mode")).toUpperCase());
         this.mode = mode == null ? Mode.BLACKLIST : mode;
     }
@@ -66,13 +62,11 @@ public class ModManager
     /**
      * Plugin modes
      */
-    private enum Mode
-    {
+    private enum Mode {
         WHITELIST((mod, modList) -> modList.contains(mod)),
         BLACKLIST((mod, modList) -> !modList.contains(mod));
 
-        Mode(BiFunction<String, List<String>, Boolean> function)
-        {
+        Mode(BiFunction<String, List<String>, Boolean> function) {
             this.function = function;
         }
 
@@ -81,14 +75,12 @@ public class ModManager
         /**
          * Determines whether a mod is allowed
          *
-         * @param mod The mod to check
+         * @param mod     The mod to check
          * @param modList The mod list
          * @return Whether the mod is allowed
          */
-        public boolean isAllowed(String mod, List<String> modList)
-        {
-            if (mod.equals("FML") || mod.equals("mcp") || mod.equals("Forge"))
-            {
+        public boolean isAllowed(String mod, List<String> modList) {
+            if (mod.equals("FML") || mod.equals("mcp") || mod.equals("Forge")) {
                 return true;
             }
 
@@ -107,8 +99,7 @@ public class ModManager
      * @param mod The mod
      * @return Whether the mod is disallowed
      */
-    private boolean isDisallowed(String mod)
-    {
+    private boolean isDisallowed(String mod) {
         return !mode.isAllowed(mod, modList);
     }
 
@@ -138,8 +129,7 @@ public class ModManager
      * @param player The player to check
      * @return Whether the player is using forge
      */
-    public boolean isUsingForge(Player player)
-    {
+    public boolean isUsingForge(Player player) {
         return playerData.containsKey(player);
     }
 
@@ -149,20 +139,18 @@ public class ModManager
      * @param player The player
      * @return The ModData object
      */
-    public ModData getModData(Player player)
-    {
+    public ModData getModData(Player player) {
         return playerData.get(player);
     }
 
     /**
      * Adds a player to the data map
      *
-     * @see #playerData
      * @param player The player to add
-     * @param data The player's {@link ModData}
+     * @param data   The player's {@link ModData}
+     * @see #playerData
      */
-    public void addPlayer(Player player, ModData data)
-    {
+    public void addPlayer(Player player, ModData data) {
         playerData.put(player, data);
 
         checkForDisallowed(player, data.getMods());
@@ -172,19 +160,16 @@ public class ModManager
      * Checks whether a player is using any disallowed mods
      *
      * @param player The player
-     * @param mods The player's mods
+     * @param mods   The player's mods
      */
-    private void checkForDisallowed(Player player, Set<String> mods)
-    {
-        if (Permission.hasPermission(player, Permission.BYPASS))
-        {
+    private void checkForDisallowed(Player player, Set<String> mods) {
+        if (Permission.hasPermission(player, Permission.BYPASS)) {
             return;
         }
 
         Set<String> disallowed = mods.stream().filter(this::isDisallowed).collect(Collectors.toSet());
 
-        if (disallowed.size() > 0 || (mods.size() > 0 && blockForge))
-        {
+        if (disallowed.size() > 0 || (mods.size() > 0 && blockForge)) {
             // Player is using disallowed mods
             String modsString = String.join(", ", mods);
             String disallowedString = String.join(", ", disallowed);
@@ -196,20 +181,18 @@ public class ModManager
     /**
      * Sends the disallowed mods command for a player using illegal mods
      *
-     * @param player The player
-     * @param mods The player's mods as a string
+     * @param player         The player
+     * @param mods           The player's mods as a string
      * @param disallowedMods The player's disallowed mods as a string
      */
-    private void sendDisallowedCommand(Player player, String mods, String disallowedMods)
-    {
+    private void sendDisallowedCommand(Player player, String mods, String disallowedMods) {
         disallowedCommands.forEach(command ->
         {
             command = formatCommand(command, player, mods, disallowedMods);
 
             String[] args = command.split(" ");
 
-            if (args[0].equalsIgnoreCase("[bungeekick]"))
-            {
+            if (args[0].equalsIgnoreCase("[bungeekick]")) {
                 String reason = UtilString.combine(args, 1);
                 UtilServer.writeBungee("KickPlayer", player.getName(), reason);
 
@@ -223,25 +206,23 @@ public class ModManager
     /**
      * Formats a command using placeholders
      *
-     * @param command The command to be executed
-     * @param player The player to substitute
-     * @param mods The mods the player is using
+     * @param command        The command to be executed
+     * @param player         The player to substitute
+     * @param mods           The mods the player is using
      * @param disallowedMods The disallowed mods the player is using
      * @return The formatted command
      */
-    private String formatCommand(String command, Player player, String mods, String disallowedMods)
-    {
+    private String formatCommand(String command, Player player, String mods, String disallowedMods) {
         return command.replace("%player%", player.getName()).replace("%mods%", mods).replace("%disallowed_mods%", disallowedMods);
     }
 
     /**
      * Removes a player from the data map
      *
-     * @see #playerData
      * @param player The player to remove
+     * @see #playerData
      */
-    public void removePlayer(Player player)
-    {
+    public void removePlayer(Player player) {
         playerData.remove(player);
     }
 }

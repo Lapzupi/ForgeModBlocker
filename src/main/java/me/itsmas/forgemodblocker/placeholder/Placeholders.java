@@ -11,15 +11,13 @@ import java.util.stream.Collectors;
 /**
  * Handles {@link PlaceholderAPI} hooks
  */
-public class Placeholders extends EZPlaceholderHook
-{
+public class Placeholders extends EZPlaceholderHook {
     /**
      * The plugin instance
      */
     private final ForgeModBlocker plugin;
 
-    public Placeholders(ForgeModBlocker plugin)
-    {
+    public Placeholders(ForgeModBlocker plugin) {
         super(plugin, "forgemodblocker");
 
         this.plugin = plugin;
@@ -28,20 +26,16 @@ public class Placeholders extends EZPlaceholderHook
     }
 
     @Override
-    public String onPlaceholderRequest(Player player, String identifier)
-    {
-        if (player == null)
-        {
+    public String onPlaceholderRequest(Player player, String identifier) {
+        if (player == null) {
             return null;
         }
 
-        if (identifier.equals("forge"))
-        {
+        if (identifier.equals("forge")) {
             return Boolean.toString(plugin.getModManager().isUsingForge(player));
         }
 
-        if (identifier.equals("mods"))
-        {
+        if (identifier.equals("mods")) {
             ModData data = plugin.getModManager().getModData(player);
 
             return data == null ? "" : String.join(", ", data.getMods());

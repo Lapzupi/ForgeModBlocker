@@ -3,6 +3,7 @@ package me.itsmas.forgemodblocker.util;
 import me.itsmas.forgemodblocker.ForgeModBlocker;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Configurable messages
@@ -45,7 +46,7 @@ public enum Message {
      * @param message The message
      * @param params  Optional formatting arguments
      */
-    public static void send(CommandSender sender, Message message, Object... params) {
+    public static void send(@NotNull CommandSender sender, @NotNull Message message, Object... params) {
         String msg = message.value() == null ? message.name() : message.value();
 
         sender.sendMessage(String.format(msg, params));

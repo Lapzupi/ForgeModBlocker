@@ -9,6 +9,7 @@ import me.itsmas.forgemodblocker.util.Logs;
 import me.itsmas.forgemodblocker.util.Permission;
 import me.itsmas.forgemodblocker.util.UtilHttp;
 import me.itsmas.forgemodblocker.util.UtilServer;
+import org.apache.commons.io.FileUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

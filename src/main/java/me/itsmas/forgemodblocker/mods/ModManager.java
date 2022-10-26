@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import me.itsmas.forgemodblocker.ForgeModBlocker;
 import me.itsmas.forgemodblocker.messaging.JoinListener;
 import me.itsmas.forgemodblocker.messaging.MessageListener;
-import me.itsmas.forgemodblocker.util.C;
+import me.itsmas.forgemodblocker.util.FormattingUtil;
 import me.itsmas.forgemodblocker.util.Permission;
 import me.itsmas.forgemodblocker.util.UtilServer;
 import me.itsmas.forgemodblocker.util.UtilString;
@@ -49,7 +49,7 @@ public class ModManager {
         modList = plugin.getConfig("mod-list", new ArrayList<>());
 
         disallowedCommands = plugin.getConfig("disallowed-mods-commands", Lists.newArrayList("kick %player% &cIllegal Mods - %disallowed_mods%"));
-        disallowedCommands.replaceAll(C::colour);
+        disallowedCommands.replaceAll(FormattingUtil::colour);
     }
 
     /**

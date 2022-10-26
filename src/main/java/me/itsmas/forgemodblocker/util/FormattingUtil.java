@@ -6,8 +6,8 @@ import org.bukkit.ChatColor;
 /**
  * Chat and formatting utilities
  */
-public final class C {
-    private C() {
+public final class FormattingUtil {
+    private FormattingUtil() {
     }
 
     /**
@@ -23,7 +23,7 @@ public final class C {
 
         ForgeModBlocker plugin = UtilServer.getPlugin();
 
-        PREFIX = C.colour(plugin.getConfig("prefix", "&c[&6FMB&c]&e")) + " ";
+        PREFIX = FormattingUtil.colour(plugin.getConfig("prefix", "&c[&6FMB&c]&e")) + " ";
     }
 
     /**

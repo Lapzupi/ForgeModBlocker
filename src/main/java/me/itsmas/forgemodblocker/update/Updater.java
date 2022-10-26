@@ -4,7 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import me.itsmas.forgemodblocker.ForgeModBlocker;
-import me.itsmas.forgemodblocker.util.C;
+import me.itsmas.forgemodblocker.util.FormattingUtil;
 import me.itsmas.forgemodblocker.util.Logs;
 import me.itsmas.forgemodblocker.util.Permission;
 import me.itsmas.forgemodblocker.util.UtilHttp;
@@ -143,7 +143,7 @@ public class Updater implements Listener {
      */
     private void setJoinMessage(String @NotNull ... messages) {
         for (int i = 0; i < messages.length; i++) {
-            messages[i] = C.PREFIX + messages[i];
+            messages[i] = FormattingUtil.PREFIX + messages[i];
         }
 
         joinMessage = String.join("\n", messages);

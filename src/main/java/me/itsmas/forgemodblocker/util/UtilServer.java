@@ -49,12 +49,12 @@ public final class UtilServer {
      * @param permission The required permission
      * @param messages   The messages to send
      * @param prefix     Whether to prefix the messages with the plugin prefix
-     * @see C#PREFIX
+     * @see FormattingUtil#PREFIX
      */
     public static void broadcast(Permission permission, boolean prefix, String... messages) {
         if (prefix) {
             for (int i = 0; i < messages.length; i++) {
-                messages[i] = C.PREFIX + messages[i];
+                messages[i] = FormattingUtil.PREFIX + messages[i];
             }
         }
 

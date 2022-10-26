@@ -5,7 +5,7 @@ import me.itsmas.forgemodblocker.command.ModsCommand;
 import me.itsmas.forgemodblocker.mods.ModManager;
 import me.itsmas.forgemodblocker.placeholder.Placeholders;
 import me.itsmas.forgemodblocker.update.Updater;
-import me.itsmas.forgemodblocker.util.C;
+import me.itsmas.forgemodblocker.util.FormattingUtil;
 import me.itsmas.forgemodblocker.util.Message;
 import org.bstats.bukkit.Metrics;
 import org.bstats.charts.SimplePie;
@@ -62,7 +62,7 @@ public class ForgeModBlocker extends JavaPlugin {
      * Initialises caching of config values
      */
     private void initConfig() {
-        C.setPrefix();
+        FormattingUtil.setPrefix();
         Message.init(this);
     }
 

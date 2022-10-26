@@ -2,6 +2,8 @@ package me.itsmas.forgemodblocker.util;
 
 import me.itsmas.forgemodblocker.ForgeModBlocker;
 import org.bukkit.ChatColor;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Chat and formatting utilities
@@ -32,7 +34,8 @@ public final class FormattingUtil {
      * @param string The string to colour
      * @return The coloured string
      */
-    public static String colour(String string) {
+    @Contract("_ -> new")
+    public static @NotNull String colour(String string) {
         return ChatColor.translateAlternateColorCodes('&', string);
     }
 }

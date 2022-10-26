@@ -20,6 +20,7 @@
         <protocolib.version>4.7.0</protocolib.version>
         <bstats.version>3.0.0</bstats.version>
         <papi.version>2.0.8</papi.version>
+        <apache.lang3.version>3.12.0</apache.lang3.version>
         <!-- bstats 1334 -->
     </properties>
 
@@ -58,6 +59,12 @@
             <artifactId>placeholderapi</artifactId>
             <version>${papi.version}</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${apache.lang3.version}</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.bstats</groupId>

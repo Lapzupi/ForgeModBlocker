@@ -11,6 +11,7 @@ import me.itsmas.forgemodblocker.util.UtilString;
 import org.apache.commons.lang3.EnumUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,8 +56,8 @@ public class ModManager {
      * Loads the whitelist/blacklist mode
      */
     private void loadMode() {
-        Mode mode = EnumUtils.getEnum(Mode.class, ((String) plugin.getConfig("mode")).toUpperCase());
-        this.mode = mode == null ? Mode.BLACKLIST : mode;
+        Mode tempMode = EnumUtils.getEnum(Mode.class, ((String) plugin.getConfig("mode")).toUpperCase());
+        this.mode = tempMode == null ? Mode.BLACKLIST : tempMode;
     }
 
     /**
@@ -169,7 +170,7 @@ public class ModManager {
 
         Set<String> disallowed = mods.stream().filter(this::isDisallowed).collect(Collectors.toSet());
 
-        if (disallowed.size() > 0 || (mods.size() > 0 && blockForge)) {
+        if (!disallowed.isEmpty() || (!mods.isEmpty() && blockForge)) {
             // Player is using disallowed mods
             String modsString = String.join(", ", mods);
             String disallowedString = String.join(", ", disallowed);
@@ -212,7 +213,7 @@ public class ModManager {
      * @param disallowedMods The disallowed mods the player is using
      * @return The formatted command
      */
-    private String formatCommand(String command, Player player, String mods, String disallowedMods) {
+    private @NotNull String formatCommand(@NotNull String command, @NotNull Player player, String mods, String disallowedMods) {
         return command.replace("%player%", player.getName()).replace("%mods%", mods).replace("%disallowed_mods%", disallowedMods);
     }
 

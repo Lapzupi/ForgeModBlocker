@@ -2,7 +2,6 @@ package me.itsmas.forgemodblocker;
 
 import me.itsmas.forgemodblocker.command.MainCommand;
 import me.itsmas.forgemodblocker.command.ModsCommand;
-import me.itsmas.forgemodblocker.metrics.Metrics;
 import me.itsmas.forgemodblocker.mods.ModManager;
 import me.itsmas.forgemodblocker.placeholder.Placeholders;
 import me.itsmas.forgemodblocker.update.Updater;
@@ -21,20 +20,17 @@ import org.bukkit.scheduler.BukkitTask;
  * @version 1.2.5
  * @since 1.0
  */
-public class ForgeModBlocker extends JavaPlugin
-{
+public class ForgeModBlocker extends JavaPlugin {
     private ModManager modManager;
 
     @Override
-    public void onEnable()
-    {
+    public void onEnable() {
         saveDefaultConfig();
         initConfig();
 
         boolean placeholderAPI = Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI");
 
-        if (placeholderAPI)
-        {
+        if (placeholderAPI) {
             new Placeholders(this);
         }
 
@@ -48,16 +44,14 @@ public class ForgeModBlocker extends JavaPlugin
     }
 
     @Override
-    public void onDisable()
-    {
+    public void onDisable() {
         destroyTasks();
     }
 
     /**
      * Reloads the plugin
      */
-    public void reload()
-    {
+    public void reload() {
         reloadConfig();
 
         initConfig();
@@ -67,8 +61,7 @@ public class ForgeModBlocker extends JavaPlugin
     /**
      * Initialises caching of config values
      */
-    private void initConfig()
-    {
+    private void initConfig() {
         C.setPrefix();
         Message.init(this);
     }
@@ -76,8 +69,7 @@ public class ForgeModBlocker extends JavaPlugin
     /**
      * Cancels all ongoing plugin tasks
      */
-    private void destroyTasks()
-    {
+    private void destroyTasks() {
         Bukkit.getScheduler().getPendingTasks().stream().filter(task -> task.getOwner() == this).forEach(BukkitTask::cancel);
     }
 
@@ -87,26 +79,23 @@ public class ForgeModBlocker extends JavaPlugin
      * @param path The path to the value
      * @return The value at the path or null if not present
      */
-    public <T> T getConfig(String path)
-    {
+    public <T> T getConfig(String path) {
         return getConfig(path, null);
     }
 
     /**
      * Fetches a value from the config
      *
-     * @param path The path to the value
+     * @param path         The path to the value
      * @param defaultValue The default value to return
      * @return The value at the path
      */
     @SuppressWarnings("unchecked")
-    public <T> T getConfig(String path, Object defaultValue)
-    {
+    public <T> T getConfig(String path, Object defaultValue) {
         return (T) getConfig().get(path, defaultValue);
     }
 
-    public ModManager getModManager()
-    {
+    public ModManager getModManager() {
         return modManager;
     }
 }

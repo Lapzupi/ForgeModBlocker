@@ -23,7 +23,7 @@ public class MainCommand implements CommandExecutor {
     private final String msg;
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender,@NotNull Command cmd,@NotNull String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
         if (!Permission.hasPermission(sender, Permission.MAIN_COMMAND)) {
             Message.send(sender, Message.NO_PERMISSION);
             return true;
@@ -31,21 +31,19 @@ public class MainCommand implements CommandExecutor {
 
         if (args.length == 0) {
             sender.sendMessage(msg);
-        } else {
-            if (args.length == 1 && args[0].equalsIgnoreCase("reload")) {
-                if (!Permission.hasPermission(sender, Permission.RELOAD_COMMAND)) {
-                    Message.send(sender, Message.NO_PERMISSION);
-                    return true;
-                }
-
-                plugin.reload();
-                Message.send(sender, Message.PLUGIN_RELOADED);
-
-                return true;
-            }
+            return false;
         }
 
-        sendUsage(sender);
+        if (args.length == 1 && args[0].equalsIgnoreCase("reload")) {
+            if (!Permission.hasPermission(sender, Permission.RELOAD_COMMAND)) {
+                Message.send(sender, Message.NO_PERMISSION);
+                return true;
+            }
+
+            plugin.reload();
+            Message.send(sender, Message.PLUGIN_RELOADED);
+        }
+
         return true;
     }
 

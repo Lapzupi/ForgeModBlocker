@@ -12,8 +12,10 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
 
+        <maven.compiler.version>3.10.1</maven.compiler.version>
+
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        
+
         <spigot.api.version>1.12.1-R0.1-SNAPSHOT</spigot.api.version>
         <protocolib.version>4.3.0</protocolib.version>
         <papi.version>2.0.8</papi.version>
@@ -62,8 +64,17 @@
     </dependencies>
 
     <build>
-        <finalName>ForgeModBlocker</finalName>
-        <sourceDirectory>src/main/java</sourceDirectory>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.version}</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+        </plugins>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>

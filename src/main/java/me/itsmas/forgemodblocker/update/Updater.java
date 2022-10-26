@@ -16,6 +16,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -53,7 +54,7 @@ public class Updater implements Listener {
      */
     private Object[] data;
 
-    public Updater(ForgeModBlocker plugin) {
+    public Updater(@NotNull ForgeModBlocker plugin) {
         this.plugin = plugin;
 
         this.updateCheckInterval = 20L * 60L * (int) plugin.getConfig("update-check-interval", 20L);
@@ -140,7 +141,7 @@ public class Updater implements Listener {
      * @param messages The separated messages
      * @see #joinMessage
      */
-    private void setJoinMessage(String... messages) {
+    private void setJoinMessage(String @NotNull ... messages) {
         for (int i = 0; i < messages.length; i++) {
             messages[i] = C.PREFIX + messages[i];
         }
@@ -153,12 +154,12 @@ public class Updater implements Listener {
      *
      * @param player The player
      */
-    private void sendJoinMessage(Player player) {
+    private void sendJoinMessage(@NotNull Player player) {
         player.sendMessage(joinMessage);
     }
 
     @EventHandler
-    public void onJoin(PlayerJoinEvent event) {
+    public void onJoin(@NotNull PlayerJoinEvent event) {
         Player player = event.getPlayer();
 
         if (joinMessage != null && Permission.hasPermission(player, Permission.UPDATE_NOTIFICATION)) {

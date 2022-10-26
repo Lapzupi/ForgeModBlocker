@@ -28,7 +28,7 @@ public class ModsCommand implements CommandExecutor {
 
         if (args.length != 1) {
             Message.send(sender, Message.MODS_COMMAND_USAGE);
-            return true;
+            return false;
         }
 
         Player player = Bukkit.getPlayer(args[0]);

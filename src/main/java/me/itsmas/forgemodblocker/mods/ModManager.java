@@ -80,7 +80,7 @@ public class ModManager {
          * @param modList The mod list
          * @return Whether the mod is allowed
          */
-        public boolean isAllowed(String mod, List<String> modList) {
+        public boolean isAllowed(@NotNull String mod, List<String> modList) { //TODO add fabric here
             if (mod.equals("FML") || mod.equals("mcp") || mod.equals("Forge")) {
                 return true;
             }

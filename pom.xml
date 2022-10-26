@@ -19,7 +19,7 @@
         <spigot.api.version>1.18.2-R0.1-SNAPSHOT</spigot.api.version>
         <protocolib.version>4.7.0</protocolib.version>
         <bstats.version>3.0.0</bstats.version>
-        <papi.version>2.0.8</papi.version>
+        <papi.version>2.11.0</papi.version>
         <apache.lang3.version>3.12.0</apache.lang3.version>
         <commons.io.version>2.11.0</commons.io.version>
         <annotations.version>23.0.0</annotations.version>

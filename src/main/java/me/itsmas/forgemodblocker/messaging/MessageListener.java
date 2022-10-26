@@ -5,6 +5,8 @@ import me.itsmas.forgemodblocker.mods.ModData;
 import me.itsmas.forgemodblocker.util.UtilServer;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.messaging.PluginMessageListener;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -26,7 +28,7 @@ public class MessageListener implements PluginMessageListener {
     }
 
     @Override
-    public void onPluginMessageReceived(String channel, Player player, byte[] data) {
+    public void onPluginMessageReceived(@NotNull String channel, @NotNull Player player, byte[] data) {
         // ModList has ID 2
         if (data[0] == 2) {
             ModData modData = getModData(data);
@@ -40,7 +42,8 @@ public class MessageListener implements PluginMessageListener {
      * @param data The input data
      * @return A ModData object
      */
-    private ModData getModData(byte[] data) {
+    @Contract("_ -> new")
+    private @NotNull ModData getModData(byte @NotNull [] data) {
         Map<String, String> mods = new HashMap<>();
 
         boolean store = false;

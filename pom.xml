@@ -12,6 +12,8 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
 
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        
         <spigot.api.version>1.12.1-R0.1-SNAPSHOT</spigot.api.version>
         <protocolib.version>4.3.0</protocolib.version>
         <papi.version>2.0.8</papi.version>

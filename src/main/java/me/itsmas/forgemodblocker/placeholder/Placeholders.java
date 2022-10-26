@@ -1,9 +1,7 @@
 package me.itsmas.forgemodblocker.placeholder;
 
 import me.clip.placeholderapi.PlaceholderAPI;
-import me.clip.placeholderapi.PlaceholderHook;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
-import me.clip.placeholderapi.external.EZPlaceholderHook;
 import me.itsmas.forgemodblocker.ForgeModBlocker;
 import me.itsmas.forgemodblocker.mods.ModData;
 import org.bukkit.entity.Player;

@@ -18,7 +18,9 @@
 
         <spigot.api.version>1.18.2-R0.1-SNAPSHOT</spigot.api.version>
         <protocolib.version>4.7.0</protocolib.version>
+        <bstats.version>3.0.0</bstats.version>
         <papi.version>2.0.8</papi.version>
+        <!-- bstats 1334 -->
     </properties>
 
     <repositories>
@@ -56,6 +58,12 @@
             <artifactId>placeholderapi</artifactId>
             <version>${papi.version}</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.bstats</groupId>
+            <artifactId>bstats-bukkit</artifactId>
+            <version>${bstats.version}</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 

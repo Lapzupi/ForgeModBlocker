@@ -8,6 +8,8 @@ import me.itsmas.forgemodblocker.placeholder.Placeholders;
 import me.itsmas.forgemodblocker.update.Updater;
 import me.itsmas.forgemodblocker.util.C;
 import me.itsmas.forgemodblocker.util.Message;
+import org.bstats.bukkit.Metrics;
+import org.bstats.charts.SimplePie;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
@@ -39,7 +41,7 @@ public class ForgeModBlocker extends JavaPlugin
         getCommand("fmb").setExecutor(new MainCommand(this));
         getCommand("mods").setExecutor(new ModsCommand(this));
 
-        new Metrics(this).addCustomChart(new Metrics.SimplePie("using_placeholderapi", () -> Boolean.toString(placeholderAPI)));
+        new Metrics(this, 1334).addCustomChart(new SimplePie("using_placeholderapi", () -> Boolean.toString(placeholderAPI)));
         new Updater(this);
 
         modManager = new ModManager(this);

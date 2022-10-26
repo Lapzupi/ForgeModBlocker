@@ -46,9 +46,4 @@ public class MainCommand implements CommandExecutor {
 
         return true;
     }
-
-    private void sendUsage(@NotNull CommandSender sender) {
-        sender.sendMessage(ChatColor.GREEN + "Commands:");
-        sender.sendMessage(ChatColor.YELLOW + "/fmb reload - Reloads the plugin");
-    }
 }
